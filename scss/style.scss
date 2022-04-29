@@ -5,110 +5,85 @@ $dark-grey : #464646;
 $yellow : #fabe50;
 $img-width: 45%;
 
-.header {
-    font-family: Arial, Helvetica, sans-serif;
-
-    &__logo {
-        text-align: center;
-    }
-
-    &__img {
-        max-width: 350px;
-    }
-
-    .menu {
-
-        &__list {
-            display: flex;
-            justify-content: center;
-            border-top: 1px solid $light-grey;
-            border-bottom: 1px solid $light-grey;
-            margin: 0 auto 0 auto;
-            width: 80%;
-            padding: 20px 0;
-        }
-
-        &__links {
-            position: relative;
-
-            //  after é uma propriedade do css que 
-            &__links:not(:last-child)::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                right: -3px;
-                margin: auto;
-                height: 15px;
-                width: 1px;
-                background-color: $light-grey;
-            }
-
-        }
-
-        &__link {
-            padding: 0 25px;
-            color: $dark-grey;
-
-            &__link:hover {
-                color: $purple;
-            }
-        }
-
-    }
-
+%no-decoration {
+    text-decoration: none;
 }
 
-// Este trecho de estilo se refere ao rodapé do nosso blog
-.footer {
-    text-align: center;
-    padding: 20px 0;
-    font-family: Arial, Helvetica, sans-serif;
-    //este trecho de estilo posiciona o footer na parte de baixo da nossa tela
-    position: relative;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+%u-decoration {
+    text-decoration: underline;
+}
 
-    &__logo {
-        max-width: 100px;
-    }
+@mixin reset-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 
-    &__txt {
-        margin: auto;
-        font-size: 14px;
+@mixin flx($property, $jty-cnt) {
+    display: flex;
+    #{$property} : $jty-cnt;
+}
+
+@mixin for-phone-only{
+    @media(max-width: 767.98px){
+        @content;
     }
 }
-.main{
+
+@mixin for-tablet-only{
+    @media(min-width: 768px) and (max-width:1199.98px){
+        @content;
+    }
+}
+
+@mixin for-desktop-only{
+    @media(min-width: 1200px){
+        @content;
+    }
+}
+
+@function calculateRem($size){
+    @return calc( $size / 16px * 1rem);
+}
+
+@mixin fontSize($size) {
+    font-size: calculateRem($size);
+} 
+@import 'header','footer','about','article';
+
+.main {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     font-family: Arial, Helvetica, sans-serif;
 
-    &__content{
+    &__content {
+        @include for-phone-only{
+            width: 100%;
+        }
         width: 70%;
         padding: 40px 8px;
     }
 
-    &__post{
+    &__post {
         text-align: center;
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
     }
 
-    &__title{
+    &__title {
         text-decoration: none;
-        font-size: 22px;
+        @include fontSize(22px);
         color: $dark-grey;
         letter-spacing: 1.5;
 
-        &:hover{
+        &:hover {
             color: $purple;
         }
     }
 
-    &__subtitle{
+    &__subtitle {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -116,158 +91,142 @@ $img-width: 45%;
         margin-bottom: 20px;
     }
 
-    &__date{
+    &__date {
         margin: 0 10px;
-        font-size: 12px;
+        @include fontSize(12px);
         font-style: italic;
     }
 
-    &__tag{
-        font-size: 14px;
+    &__tag {
+        @include fontSize(14px);
         padding: 5px 7px;
         color: $purple;
         border: 1px solid $purple;
         margin: 0 10px;
     }
 
-    &__details{
+    &__details {
         border: 1px solid $light-grey;
     }
 
-    &__img{
+    &__img {
         width: 100%;
     }
 
-    &__description{
+    &__description {
         padding: 40px 0 25px;
         max-width: 650px;
         margin-left: auto;
         margin-right: auto;
-        font-size: 14px;
+        @include fontSize(14px);
     }
 
-    &__btn{
+    &__btn {
         text-decoration: none;
-        font-size: 16px;
+        @include fontSize(16px);
         letter-spacing: 1.5;
         color: $purple;
-        background-color:$yellow;
+        background-color: $yellow;
         padding: 10px 20px;
         transition: .3s;
 
-        &:hover{
+        &:hover {
             background-color: $purple;
             color: $yellow;
         }
     }
 
-    &__info{
-        display: flex;
-        justify-content: space-between;
+    &__info {
+        @include flx(justify-content, space-between);
         align-items: center;
         border-top: 1px solid $light-grey;
         margin-top: 30px;
     }
-    &__autor{
+
+    &__autor {
         width: 50%;
         border-right: 1px solid $light-grey;
     }
 
-    &__p{
-        font-size: 14px;
+    &__p {
+        @include fontSize(14px);
         color: $dark-grey;
         margin-top: 10px;
         margin-bottom: 10px;
     }
 
-    &__coments{
+    &__coments {
         width: 50%;
     }
-    
-    &__a{
+
+    &__a {
         text-decoration: none;
-        font-size: 14px;
+        @include fontSize(14px);
         color: $dark-grey;
         margin-top: 10px;
         margin-bottom: 10px;
 
-        &:hover{
+        &:hover {
             color: $purple;
         }
     }
-}
-.about{
-    max-width: 80%;
-    margin: 0 auto 40px;
-    font-family: Arial, Helvetica, sans-serif;
 
-    &__title{
-        background-color: $light-grey;
-        text-align: center;
-        padding: 20px;
-    }
-    &__h1{
-        font-size: 22px;
-        color: $dark-grey;
-        letter-spacing: 1px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        margin-left: 0;
-        margin-right: 0;
+    &__sidebar {
+        width: 25%;
+        padding: 40px 10px;
     }
 
-    .breadcrumb{
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .sidebar {
+        &__top {
+            border: 1px solid $light-grey;
+            padding: 15px 20px;
+        }
 
-        &__link{
-            font-size: 12px;
-            text-decoration: none;
-            color: $dark-grey;
+        &__title {
+            background-color: $yellow;
+            text-align: center;
+            padding: 10px 20px;
+            margin: 0;
+            letter-spacing: 1.5px;
+        }
 
-            &:hover{
-                text-decoration: underline;
-                color: $purple;
+        &__posts {
+            @include reset-list;
+        }
+
+        &__list {
+            @include flx(justify-content, center);
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 15px 0;
+
+            &:not(:last-child) {
+                border-bottom: 1px dashed $light-grey;
             }
         }
 
-        &__img{
-            width: 10px;
-            margin: 8px;
+        &__img {
+            width: 40%;
         }
-    }
 
-    &__img{
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    &__intro{
-        font-weight: 100;
-        color: $dark-grey;
-        width: 70%;
-        margin: 30px auto;
-        text-align: center;
-        font-size: 16px;
-    }
-    //codigo abaixo faz a estilizacao de a imagem á esquerda e o texto na direita
+        &__details {
+            width: 50%;
+            padding-left: 10px;
+        }
 
-    &__split{
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        align-items:center;
-    }
-    &__img2{
-        width: $img-width;   
-    }
-    //calc é um exemplo da interpolation
-    &__txt{
-        width: calc(100% - #{$img-width});
-    }
-    &__p{
-        font-size: 14px;
-        padding: 10px 20px;
-        color: $dark-grey;
+        &__post-title {
+            @include fontSize(14px);
+            color: $purple;
+            @extend %no-decoration;
+
+            &:hover {
+                @extend %u-decoration;
+            }
+        }
+
+        &__post-date {
+            @include fontSize(12px);
+            margin: 5px 0 0 0;
+        }
     }
 }
