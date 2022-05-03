@@ -76,3 +76,12 @@ Interpolação é usada para injetar valores em expressões como variáveis e fu
 
 ## @import 'header','footer','about','article';
 (exemplo da importacao de varios arquivos scss)
+
+
+
+## estrutura do if e else
+    @if $half-post {
+        width: $half-width;
+    } @else{
+        width: $full-width;
+    }
